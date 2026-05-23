@@ -1,0 +1,554 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf-8]{inputenc}
+\usepackage[portuguese]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows,positioning}
+
+\geometry{margin=1in}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{10pt}
+
+% Configuração de cores para código
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstset{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegray},
+    keywordstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codegreen},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Documentação do Projeto}
+\lhead{Modulação NRZ-L e NRZ-I}
+\cfoot{\thepage}
+
+\title{\textbf{Documentação Técnica do Projeto}\\[0.5cm]\large{Modulação Digital em VHDL: NRZ-L e NRZ-I}}
+\author{Edgar Camacho Seabra Ribeiro, Henrico Birochi,\\Nicholas Birochi, Vitor A. Braghttoni}
+\date{2026}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+% ============================================
+\section{Visão Geral do Circuito}
+% ============================================
+
+Este projeto implementa dois sistemas de modulação digital em VHDL: \textbf{NRZ-L} (Non-Return-to-Zero Level) e \textbf{NRZ-I} (Non-Return-to-Zero Inverted). Ambos os sistemas convertem uma sequência de 16 bits de entrada em um sinal serial modulado com temporização precisa.
+
+\subsection{NRZ-L (Unipolar Non-Return-to-Zero Level)}
+
+O módulo \texttt{nrz\_l} implementa a codificação NRZ-L, onde a representação do bit é feita pelo \textbf{nível do pulso} mantido durante todo o intervalo do bit:
+
+\begin{itemize}
+    \item \textbf{Bit '1':} Linha em nível \textbf{ALTO} durante todo o período do bit
+    \item \textbf{Bit '0':} Linha em nível \textbf{BAIXO} durante todo o período do bit
+\end{itemize}
+
+O módulo recebe um vetor de 16 bits pela porta \texttt{data\_in} e gera, na saída \texttt{nrz\_out}, um sinal modulado em NRZ-L. A duração de cada bit é definida pelo generic \texttt{TICKS\_PER\_BIT}, que controla um contador interno responsável por determinar o instante de troca de bit.
+
+\subsection{NRZ-I (Unipolar Non-Return-to-Zero Inverted)}
+
+O módulo \texttt{nrz\_i} implementa a codificação NRZ-I, onde a representação é feita pela \textbf{transição da linha}, não pelo nível absoluto:
+
+\begin{itemize}
+    \item \textbf{Bit '1':} Provoca uma \textbf{alternância} (toggle) da linha em relação ao estado anterior
+    \item \textbf{Bit '0':} Mantém o \textbf{estado anterior} da linha
+\end{itemize}
+
+Este esquema é superior para recuperação de clock, pois garante transições mesmo em sequências de zeros. O módulo utiliza o sinal interno \texttt{current\_lvl} para armazenar o estado anterior da linha e implementar a lógica de transição.
+
+% ============================================
+\section{Diagramas de Blocos}
+% ============================================
+
+\subsection{Diagrama de Blocos Geral}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+    \node (clk) [rectangle, draw, minimum width=2cm, minimum height=0.8cm] {CLK};
+    \node (rst) [rectangle, draw, minimum width=2cm, minimum height=0.8cm, below=0.3cm of clk] {RESET};
+    \node (data) [rectangle, draw, minimum width=2cm, minimum height=0.8cm, below=0.3cm of rst] {DATA\_IN[15:0]};
+    
+    \node (modulo) [rectangle, draw, minimum width=3.5cm, minimum height=3cm, right=2cm of rst] {Módulo NRZ};
+    
+    \node (out) [rectangle, draw, minimum width=2cm, minimum height=0.8cm, right=2cm of modulo] {NRZ\_OUT};
+    \node (idx) [rectangle, draw, minimum width=2cm, minimum height=0.8cm, below=0.3cm of out] {BIT\_IDX[3:0]};
+    
+    \draw [->] (clk) -- (modulo);
+    \draw [->] (rst) -- (modulo);
+    \draw [->] (data) -- (modulo);
+    \draw [->] (modulo) -- (out);
+    \draw [->] (modulo) -- (idx);
+\end{tikzpicture}
+\caption{Diagrama de blocos geral dos módulos NRZ-L e NRZ-I}
+\end{figure}
+
+\subsection{Diagrama Interno - NRZ-L}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=1.5cm]
+    \node (clk) [rectangle, draw] {CLK};
+    \node (reset) [rectangle, draw, below=0.2cm of clk] {RESET};
+    \node (data) [rectangle, draw, below=0.2cm of reset] {DATA\_IN[15:0]};
+    
+    \node (bitptr) [rectangle, draw, right=1.5cm of clk] {bit\_ptr\\[0:15]};
+    \node (counter) [rectangle, draw, below=0.3cm of bitptr] {tick\_counter\\[0:TICKS-1]};
+    \node (mux) [rectangle, draw, right=1.5cm of bitptr] {MUX};
+    
+    \node (out) [rectangle, draw, right=1.5cm of mux] {nrz\_out};
+    
+    \draw [->] (clk) -- (bitptr);
+    \draw [->] (clk) -- (counter);
+    \draw [->] (reset) -- (bitptr);
+    \draw [->] (reset) -- (counter);
+    \draw [->] (data) -- (mux);
+    \draw [->] (bitptr) -- (mux);
+    \draw [->] (counter) -- (bitptr);
+    \draw [->] (mux) -- (out);
+\end{tikzpicture}
+\caption{Diagrama interno do módulo NRZ-L mostrando fluxo de dados e controle}
+\end{figure}
+
+\subsection{Diagrama Interno - NRZ-I}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=1.5cm]
+    \node (clk) [rectangle, draw] {CLK};
+    \node (reset) [rectangle, draw, below=0.2cm of clk] {RESET};
+    \node (data) [rectangle, draw, below=0.2cm of reset] {DATA\_IN[15:0]};
+    
+    \node (bitptr) [rectangle, draw, right=1.5cm of clk] {bit\_ptr};
+    \node (counter) [rectangle, draw, below=0.3cm of bitptr] {tick\_counter};
+    \node (lvl) [rectangle, draw, below=0.3cm of counter] {current\_lvl};
+    \node (logic) [rectangle, draw, right=1.5cm of bitptr] {Lógica NRZ-I};
+    
+    \node (out) [rectangle, draw, right=1.5cm of logic] {nrz\_out};
+    
+    \draw [->] (clk) -- (bitptr);
+    \draw [->] (clk) -- (counter);
+    \draw [->] (clk) -- (lvl);
+    \draw [->] (reset) -- (bitptr);
+    \draw [->] (reset) -- (counter);
+    \draw [->] (reset) -- (lvl);
+    \draw [->] (data) -- (logic);
+    \draw [->] (bitptr) -- (logic);
+    \draw [->] (counter) -- (logic);
+    \draw [->] (lvl) -- (logic);
+    \draw [->] (counter) -- (bitptr);
+    \draw [->] (logic) -- (out);
+    \draw [->] (out) -- (lvl);
+\end{tikzpicture}
+\caption{Diagrama interno do módulo NRZ-I com memória de estado}
+\end{figure}
+
+% ============================================
+\section{Interface (Entradas e Saídas)}
+% ============================================
+
+\subsection{Módulo nrz\_l}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|l|l|X|l|}
+\hline
+\textbf{Porta} & \textbf{Tipo} & \textbf{Função} & \textbf{Direção} \\
+\hline
+\texttt{clk} & \texttt{std\_logic} & Sinal de clock da FPGA (100 MHz) & Entrada \\
+\hline
+\texttt{reset} & \texttt{std\_logic} & Reset assíncrono (nível alto) & Entrada \\
+\hline
+\texttt{data\_in} & \texttt{std\_logic\_vector(15 downto 0)} & Sequência de 16 bits (switches da placa) & Entrada \\
+\hline
+\texttt{nrz\_out} & \texttt{std\_logic} & Sinal modulado em NRZ-L (LED) & Saída \\
+\hline
+\texttt{tx\_pmod} & \texttt{std\_logic} & Saída espelhada para Pmod JA1 (osciloscópio) & Saída \\
+\hline
+\texttt{bit\_idx} & \texttt{integer} (0 a 15) & Índice do bit atual sendo transmitido (LEDs 12-15) & Saída \\
+\hline
+\end{tabularx}
+\caption{Portas do módulo nrz\_l}
+\end{table}
+
+\subsection{Módulo nrz\_i}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|l|l|X|l|}
+\hline
+\textbf{Porta} & \textbf{Tipo} & \textbf{Função} & \textbf{Direção} \\
+\hline
+\texttt{clk} & \texttt{std\_logic} & Sinal de clock da FPGA (100 MHz) & Entrada \\
+\hline
+\texttt{reset} & \texttt{std\_logic} & Reset assíncrono (nível alto) & Entrada \\
+\hline
+\texttt{data\_in} & \texttt{std\_logic\_vector(15 downto 0)} & Sequência de 16 bits (switches da placa) & Entrada \\
+\hline
+\texttt{nrz\_out} & \texttt{std\_logic} & Sinal modulado em NRZ-I & Saída \\
+\hline
+\texttt{bit\_idx} & \texttt{integer} (0 a 15) & Índice do bit atual sendo transmitido (LEDs 12-15) & Saída \\
+\hline
+\end{tabularx}
+\caption{Portas do módulo nrz\_i}
+\end{table}
+
+% ============================================
+\section{Parâmetros (Generics)}
+% ============================================
+
+Ambos os módulos aceitam dois parâmetros genéricos que controlam seu comportamento:
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|l|l|X|}
+\hline
+\textbf{Generic} & \textbf{Tipo} & \textbf{Função} \\
+\hline
+\texttt{DATA\_WIDTH} & \texttt{integer} & Largura do barramento de dados (padrão: 16 bits). Define quantos bits são transmitidos em sequência. \\
+\hline
+\texttt{TICKS\_PER\_BIT} & \texttt{integer} & Número de ciclos de clock por bit de dados. Padrão: 100000000 (NRZ-L), 10 (NRZ-I). Controla a taxa de transmissão dos dados. \\
+\hline
+\end{tabularx}
+\caption{Parâmetros genéricos dos módulos}
+\end{table}
+
+\textbf{Exemplo de uso em VHDL:}
+
+\begin{lstlisting}[language=VHDL]
+-- Instanciação com parâmetros padrão
+nrz_l_inst : entity work.nrz_l
+    port map (
+        clk => clk_100mhz,
+        reset => btn_reset,
+        data_in => sw_16bit,
+        nrz_out => led_modulated
+    );
+
+-- Instanciação com parâmetros customizados
+nrz_i_custom : entity work.nrz_i
+    generic map (
+        DATA_WIDTH => 32,
+        TICKS_PER_BIT => 20
+    )
+    port map (
+        clk => clk,
+        reset => reset,
+        data_in => data(31 downto 0),
+        nrz_out => output
+    );
+\end{lstlisting}
+
+% ============================================
+\section{Funcionamento Interno}
+% ============================================
+
+\subsection{Mecanismo de Temporização}
+
+Ambos os módulos utilizam um contador interno \texttt{tick\_counter} que controla o tempo de transmissão de cada bit:
+
+\begin{enumerate}
+    \item Inicialmente, \texttt{tick\_counter} = 0
+    \item A cada ciclo de clock, o contador é incrementado
+    \item Quando atinge \texttt{TICKS\_PER\_BIT - 1}, o contador reseta e um novo bit é selecionado
+    \item O tempo total de cada bit = \texttt{TICKS\_PER\_BIT} ciclos de clock
+\end{enumerate}
+
+A taxa de dados (baud rate) pode ser calculada como:
+
+\begin{equation}
+\text{Taxa de dados} = \frac{f_{\text{clk}}}{\text{TICKS\_PER\_BIT}}
+\end{equation}
+
+Exemplo: Com \texttt{f\_clk} = 100 MHz e \texttt{TICKS\_PER\_BIT} = 100000000, a taxa é 1 bit/segundo.
+
+\subsection{Seleção Sequencial de Bits}
+
+O módulo \texttt{bit\_ptr} funciona como um índice que aponta qual bit está sendo transmitido:
+
+\begin{itemize}
+    \item Começa em \texttt{DATA\_WIDTH - 1} (bit mais significativo)
+    \item Decrementa a cada período de \texttt{TICKS\_PER\_BIT}
+    \item Quando atinge 0, volta para \texttt{DATA\_WIDTH - 1} (comportamento cíclico)
+\end{itemize}
+
+A saída \texttt{bit\_idx} expõe este índice para fins de debug em simulação.
+
+\subsection{Lógica NRZ-L}
+
+A lógica de saída do NRZ-L é simples:
+
+\begin{lstlisting}[language=VHDL]
+-- Continuamente transmitir o bit apontado por bit_ptr
+nrz_out <= data_in(bit_ptr);
+\end{lstlisting}
+
+O sinal de saída reflete diretamente o valor do bit sendo transmitido, mantendo seu nível durante todo o intervalo \texttt{TICKS\_PER\_BIT}.
+
+\subsection{Lógica NRZ-I}
+
+A lógica de NRZ-I é mais complexa, pois implementa a regra de transição:
+
+\begin{lstlisting}[language=VHDL]
+if tick_counter = 0 then  -- Início de um novo bit
+    if data_in(bit_ptr) = '1' then
+        -- Bit '1': alternar a linha
+        current_lvl <= not current_lvl;
+        nrz_out <= not current_lvl;
+    else
+        -- Bit '0': manter o estado anterior
+        nrz_out <= current_lvl;
+    end if;
+else
+    -- Manter a linha estável durante o resto do período
+    nrz_out <= current_lvl;
+end if;
+\end{lstlisting}
+
+\textbf{Consequências da lógica NRZ-I:}
+
+\begin{itemize}
+    \item Uma sequência de '1's alterna a linha: 0, 1, 0, 1, 0, 1, ...
+    \item Uma sequência de '0's mantém a linha constante: 1, 1, 1, 1, 1, ...
+    \item Garante transições frequentes mesmo em dados com muitos zeros
+    \item Facilita a sincronização de clock no receptor
+\end{itemize}
+
+\subsection{Reset Assíncrono}
+
+Quando \texttt{reset} = '1', ambos os módulos retornam aos estados iniciais:
+
+\begin{itemize}
+    \item \texttt{bit\_ptr} $\leftarrow$ \texttt{DATA\_WIDTH - 1}
+    \item \texttt{tick\_counter} $\leftarrow$ 0
+    \item \texttt{nrz\_out} $\leftarrow$ '0'
+    \item \texttt{current\_lvl} $\leftarrow$ '0' (apenas NRZ-I)
+\end{itemize}
+
+% ============================================
+\section{Mapeamento Físico na Placa Basys3}
+% ============================================
+
+\subsection{Pinos da FPGA}
+
+Os módulos são mapeados nos seguintes pinos da placa Basys3 (especificado em \texttt{.xdc}):
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|l|l|l|l|}
+\hline
+\textbf{Sinal} & \textbf{Pino FPGA} & \textbf{Tipo} & \textbf{Recurso da Placa} \\
+\hline
+\multicolumn{4}{|c|}{\textbf{Entradas}} \\
+\hline
+\texttt{clk} & W5 & I/O & Clock 100 MHz \\
+\hline
+\texttt{reset} & U18 & I/O & Botão central (btnC) \\
+\hline
+\texttt{data\_in[0]} & V17 & I/O & Switch 0 \\
+\hline
+\texttt{data\_in[1]} & V16 & I/O & Switch 1 \\
+\hline
+\texttt{data\_in[2]} & W16 & I/O & Switch 2 \\
+\hline
+\texttt{data\_in[3]} & W17 & I/O & Switch 3 \\
+\hline
+\texttt{data\_in[4]} & W15 & I/O & Switch 4 \\
+\hline
+\texttt{data\_in[5]} & V15 & I/O & Switch 5 \\
+\hline
+\texttt{data\_in[6]} & W14 & I/O & Switch 6 \\
+\hline
+\texttt{data\_in[7]} & W13 & I/O & Switch 7 \\
+\hline
+\texttt{data\_in[8]} & V2 & I/O & Switch 8 \\
+\hline
+\texttt{data\_in[9]} & T3 & I/O & Switch 9 \\
+\hline
+\texttt{data\_in[10]} & T2 & I/O & Switch 10 \\
+\hline
+\texttt{data\_in[11]} & R3 & I/O & Switch 11 \\
+\hline
+\texttt{data\_in[12]} & W2 & I/O & Switch 12 \\
+\hline
+\texttt{data\_in[13]} & U1 & I/O & Switch 13 \\
+\hline
+\texttt{data\_in[14]} & T1 & I/O & Switch 14 \\
+\hline
+\texttt{data\_in[15]} & R2 & I/O & Switch 15 \\
+\hline
+\multicolumn{4}{|c|}{\textbf{Saídas}} \\
+\hline
+\texttt{nrz\_out} & U16 & O & LED 0 (mais à direita) \\
+\hline
+\texttt{bit\_idx[0]} & P3 & O & LED 12 \\
+\hline
+\texttt{bit\_idx[1]} & N3 & O & LED 13 \\
+\hline
+\texttt{bit\_idx[2]} & P1 & O & LED 14 \\
+\hline
+\texttt{bit\_idx[3]} & L1 & O & LED 15 \\
+\hline
+\texttt{tx\_pmod} & J1 & O & Pmod JA1 (apenas NRZ-L) \\
+\hline
+\end{tabularx}
+\caption{Mapeamento de pinos na FPGA Basys3}
+\end{table}
+
+\subsection{Operação da Placa}
+
+\begin{enumerate}
+    \item \textbf{Configurar entrada:} Use os 16 switches para definir o padrão de bits a ser transmitido
+    \item \textbf{Observar saída:} O LED 0 (mais à direita) mostra o sinal modulado em tempo real
+    \item \textbf{Monitorar índice:} Os LEDs 12-15 (mais à esquerda) mostram em binário qual bit está sendo transmitido
+    \item \textbf{Reset:} Pressione o botão central para retornar ao primeiro bit (MSB)
+    \item \textbf{Osciloscópio (NRZ-L):} Conecte o osciloscópio ao Pmod JA1 para visualizar o sinal sem delays
+\end{enumerate}
+
+% ============================================
+\section{Dependências e Ambiente}
+% ============================================
+
+\subsection{Requisitos de Software}
+
+\begin{itemize}
+    \item \textbf{Vivado Design Suite:} Versão 2022.2 ou superior
+    \item \textbf{Linguagem:} VHDL-2008 (IEEE 1076-2008)
+    \item \textbf{Simulador:} Vivado Simulator (xsim)
+    \item \textbf{Sintetizador:} Vivado Synthesis (synth\_1)
+\end{itemize}
+
+\subsection{Requisitos de Hardware}
+
+\begin{itemize}
+    \item \textbf{Placa FPGA:} Basys3 (Artix-7 XC7A35T)
+    \item \textbf{Programador:} USB-JTAG (integrado na Basys3)
+    \item \textbf{Clock:} Oscilador de 100 MHz (integrado)
+\end{itemize}
+
+\subsection{Bibliotecas VHDL Utilizadas}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Biblioteca} & \textbf{Uso} \\
+\hline
+\texttt{IEEE.STD\_LOGIC\_1164} & Tipos e funções padrão (std\_logic, std\_logic\_vector) \\
+\hline
+\texttt{IEEE.NUMERIC\_STD} & Operações aritméticas em vetores (unsigned, signed) \\
+\hline
+\end{tabularx}
+\caption{Bibliotecas VHDL utilizadas}
+\end{table}
+
+\subsection{Estrutura de Diretórios}
+
+\begin{lstlisting}
+NRZ-L/
+├── src/nrz_l.vhd              Módulo principal
+├── sim/nrz_l_tb.vhd            Testbench
+├── constraints/basys3_nrz_l.xdc Mapeamento de pinos
+└── vivado-project/             Projeto Vivado pronto
+
+NRZ-I/
+├── src/nrz_i.vhd              Módulo principal
+├── sim/nrz_i_tb.vhd            Testbench
+├── constraints/basys3_nrz_i.xdc Mapeamento de pinos
+└── vivado-project/             Projeto Vivado pronto
+\end{lstlisting}
+
+% ============================================
+\section{Exemplos de Uso}
+% ============================================
+
+\subsection{Simulação em VHDL}
+
+Para simular o comportamento do módulo:
+
+\begin{enumerate}
+    \item Abra o Vivado
+    \item Carregue o projeto: \texttt{Projeto NRZ-L.xpr} ou \texttt{Projeto NRZ-I.xpr}
+    \item Clique em \texttt{Run Simulation} $\rightarrow$ \texttt{Run Behavioral Simulation}
+    \item Observe os sinais no waveform viewer
+\end{enumerate}
+
+\subsection{Síntese e Programação}
+
+\begin{enumerate}
+    \item Executar síntese: \texttt{Run Synthesis}
+    \item Executar place and route: \texttt{Run Implementation}
+    \item Gerar bitstream: \texttt{Generate Bitstream}
+    \item Programar a placa via \texttt{Program Device}
+\end{enumerate}
+
+\subsection{Verificação Funcional}
+
+Para verificar o funcionamento correto na placa:
+
+\begin{enumerate}
+    \item Configure os switches para um padrão conhecido (ex: alternado: 0x5555)
+    \item Observe o LED 0 pulsando conforme esperado
+    \item Verifique os LEDs 12-15 contando de cima para baixo (binário)
+    \item Utilize o botão reset para retornar ao MSB
+\end{enumerate}
+
+% ============================================
+\newpage
+\section{Observações Técnicas}
+% ============================================
+
+\subsection{Timing}
+
+O módulo é síncrono ao clock de 100 MHz. Todas as operações ocorrem nas bordas de subida do clock (\texttt{rising\_edge(clk)}). O reset é assíncrono.
+
+\subsection{Sincronismo de Dados}
+
+A saída \texttt{nrz\_out} pode ser observada simultaneamente com \texttt{bit\_idx} para verificar qual bit está sendo transmitido. Esta correspondência é útil para debug em simulação.
+
+\subsection{Comportamento Cíclico}
+
+Após transmitir todos os 16 bits, o módulo automaticamente retorna ao primeiro bit (MSB) e inicia uma nova transmissão. Este padrão repete indefinidamente até um reset.
+
+\subsection{Extensibilidade}
+
+Os generics \texttt{DATA\_WIDTH} e \texttt{TICKS\_PER\_BIT} podem ser modificados para criar instâncias customizadas:
+
+\begin{itemize}
+    \item Aumentar \texttt{DATA\_WIDTH} para transmitir mais bits
+    \item Reduzir \texttt{TICKS\_PER\_BIT} para aumentar a taxa de transmissão
+    \item Ajustar a taxa para compatibilidade com receptores específicos
+\end{itemize}
+
+\end{document}
