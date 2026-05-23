@@ -1,98 +1,90 @@
-# Modulação NRZ-L e NRZ-I em VHDL/FPGA
+![GitHub Stars](https://www.shieldcn.dev/github/stars/Edgarcsr/modulacao_nrz_l_nrz_i_vhdl_fpga.svg?variant=secondary&size=sm)
+![Commits](https://www.shieldcn.dev/github/commits/Edgarcsr/modulacao_nrz_l_nrz_i_vhdl_fpga.svg?variant=secondary&size=sm)
+![Branches](https://www.shieldcn.dev/github/branches/Edgarcsr/modulacao_nrz_l_nrz_i_vhdl_fpga.svg?variant=ghost&size=sm&theme=violet)
+![Contributors](https://www.shieldcn.dev/github/contributors/Edgarcsr/modulacao_nrz_l_nrz_i_vhdl_fpga.svg?theme=emerald&variant=ghost&size=sm)
+![License](https://www.shieldcn.dev/github/license/Edgarcsr/modulacao_nrz_l_nrz_i_vhdl_fpga.svg?variant=ghost&size=sm&theme=orange)
 
-Trabalho prático da disciplina de **Comunicação de Dados - Sistemas Reconfiguráveis**.
+# Modulação Digital em VHDL
 
-O trabalho consiste em desenvolver, simular e implementar em FPGA, utilizando VHDL e o Vivado, dois sistemas de modulação digital:
+Trabalho da disciplina de **Comunicação de Dados - Sistemas Reconfiguráveis**, 2026.
 
-- **Unipolar NRZ-L** — bit representado pelo nível do pulso
-- **Unipolar NRZ-I** — bit representado pela transição do pulso
+## Integrantes
 
-## Organização deste repositório
+- Edgar Camacho Seabra Ribeiro (RA: 081230039)
+- Henrico Birochi (RA: 081230027)
+- Nicholas Birochi (RA: 081230038)
+- Vitor A. Braghttoni (RA: 081230024)
 
-A branch `main` contém apenas o enunciado e o guia. Cada grupo terá uma **branch dedicada** com a entrega aprovada. A estrutura evolui ao longo do semestre:
+## Descrição
 
-### Estado inicial (semestre começando)
+Este trabalho implementa, em VHDL, dois sistemas de modulação digital: **Unipolar NRZ-L** e **Unipolar NRZ-I**. O código foi simulado no Vivado Simulator e implementado na placa FPGA Basys3. Cada projeto é auto-contido com seu próprio código, testbench, constraints e documentação, além de atividades extras opcionais (saída PMOD para osciloscópio e saída VGA com cores pulsantes).
 
-```
-modulacao_nrz_l_nrz_i_vhdl_fpga/
-└── main
-    ├── README.md
-    ├── enunciado.pdf
-    └── guia_documentacao.pdf
-```
-
-### Durante o semestre (grupos entregando)
+## Estrutura do repositório
 
 ```
 modulacao_nrz_l_nrz_i_vhdl_fpga/
-├── main                  Enunciado e guia (não muda)
-├── grupo1                Entrega do grupo 1
-├── grupo2                Entrega do grupo 2
-└── grupo3                Entrega do grupo 3
+├── NRZ-L/              Projeto da modulação NRZ-L (auto-contido)
+│   ├── src/            Código-fonte VHDL do circuito
+│   ├── sim/            Testbench para simulação
+│   ├── constraints/    Mapeamento dos pinos da FPGA (.xdc)
+│   ├── vivado-project/ Projeto Vivado pronto para abrir
+│   └── extras/         Atividades opcionais (PMOD e VGA)
+├── NRZ-I/              Projeto da modulação NRZ-I (auto-contido)
+│   ├── src/            Código-fonte VHDL do circuito
+│   ├── sim/            Testbench para simulação
+│   ├── constraints/    Mapeamento dos pinos da FPGA (.xdc)
+│   ├── vivado-project/ Projeto Vivado pronto para abrir
+│   └── extras/         Atividades opcionais (PMOD e VGA)
+├── Documentation/      Documentação consolidada (relatório final)
+└── README.md           Este arquivo
 ```
 
-### Fim do semestre (todas as entregas consolidadas)
+Cada projeto possui:
 
-```
-modulacao_nrz_l_nrz_i_vhdl_fpga/
-├── main                  Enunciado e guia (sempre intocada)
-├── grupo1                Entrega do grupo 1
-├── grupo2                Entrega do grupo 2
-├── grupo3                Entrega do grupo 3
-├── ...
-└── grupoN                Entrega do grupo N
-```
+- **src/** com o código VHDL principal
+- **sim/** com o testbench para simulação
+- **constraints/** com o mapeamento de pinos para a Basys3
+- **vivado-project/** com o projeto Vivado pronto para abrir e simular/sintetizar
+- **extras/** com as atividades opcionais implementadas (PMOD e VGA)
 
-**Como navegar entre as entregas:** clicar no seletor de branches (canto superior esquerdo, onde aparece `main`) e escolher a branch do grupo desejado.
+## Projetos
 
-## Documentos do trabalho
+- [**Modulação NRZ-L**](./NRZ-L/) — bit representado pelo nível do pulso
+- [**Modulação NRZ-I**](./NRZ-I/) — bit representado pela transição do pulso
 
-- [📄 Enunciado completo](./enunciado.pdf) — descrição do trabalho, requisitos e atividades extras
-- [📘 Guia de documentação](./guia_documentacao.pdf) — orientação sobre READMEs, tutoriais, documentação técnica e relatório
+## Ferramentas utilizadas
 
-**Leia os dois antes de começar.** O enunciado descreve *o que fazer*; o guia descreve *como organizar a entrega*.
+- **Vivado 2025.1** (ou compatível)
+- **Placa FPGA Basys3**
+- **Linguagem**: VHDL
+- **Simulação**: Vivado Simulator
+- **Síntese e implementação**: Vivado Design Suite
 
-## Como entregar (fluxo de fork)
+## Como começar
 
-A entrega é feita via **fork + Pull Request**. Resumidamente:
+Recomendamos iniciar pelo projeto NRZ-L para entender os conceitos básicos:
 
-1. **Fazer fork** deste repositório (botão `Fork` no canto superior direito)
-2. **Clonar o fork** na máquina de um dos integrantes
-3. **Desenvolver o trabalho** no fork seguindo a estrutura sugerida
-4. **Abrir um Pull Request** com o título no formato:
-```
-   Entrega - Grupo X - Nome dos integrantes
-```
-5. **Aguardar a revisão**. Após aprovado, o trabalho será incorporado como branch dedicada do grupo neste repositório
+1. Acesse a pasta [NRZ-L/](./NRZ-L/)
+2. Leia o README local para uma visão geral do projeto
+3. Siga o tutorial de simulação para ver o circuito funcionando
 
-Os passos detalhados, com todos os comandos Git, estão no [enunciado](./enunciado.pdf).
+Para uma **simulação rápida sem ler documentação**:
 
-## Estrutura esperada dentro do fork de cada grupo
+1. Abra o Vivado
+2. Carregue o projeto em `NRZ-L/vivado-project/Projeto NRZ-L.xpr`
+3. Clique em `Run Simulation` → `Run Behavioral Simulation`
 
-```
-modulacao_vhdl/
-├── README.md
-├── nrz_l/
-│   ├── src/, sim/, constraints/, vivado_project/
-│   ├── docs/      (tutoriais e documentação técnica)
-│   └── extras/    (PMOD e VGA, opcionais)
-├── nrz_i/         (mesma estrutura)
-└── relatorio_final/
-```
+Após concluir o NRZ-L, siga para o [NRZ-I/](./NRZ-I/) para aprender a segunda modulação e comparar as diferenças.
 
-Detalhes completos no [guia de documentação](./guia_documentacao.pdf).
+## Atividades extras realizadas
 
-## Entregas dos grupos
+- **PMOD (Osciloscópio)** — Disponibiliza o sinal modulado em um pino PMOD da placa para visualização em osciloscópio físico
+- **VGA (Visualização)** — Exibe a forma de onda em cores pulsantes na tela via saída VGA
 
-À medida que as entregas forem aprovadas, esta seção será atualizada com os links das branches:
+Detalhes e tutoriais em cada projeto.
 
-<!-- Exemplo (será preenchido ao longo do semestre):
-- [Grupo 1](../../tree/grupo1) — Nome 1, Nome 2
-- [Grupo 2](../../tree/grupo2) — Nome 3, Nome 4
--->
+---
 
-## Observações
-
-- A implementação na placa é **obrigatória**
-- As atividades extras (PMOD e VGA) são **opcionais** e somam pontuação adicional
-- Dúvidas: abrir uma **Issue** neste repositório
+<p align="center">
+  Feito com 💛 na CEFSA
+</p>
