@@ -3,28 +3,28 @@
 # SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
 # IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
 # SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
-# Start of session at: Fri May 22 20:47:01 2026
-# Process ID         : 16700
-# Current directory  : C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.runs/synth_1
+# Start of session at: Mon May 25 21:31:02 2026
+# Process ID         : 16632
+# Current directory  : C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.runs/synth_1
 # Command line       : vivado.exe -log nrz_l.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source nrz_l.tcl
-# Log file           : C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.runs/synth_1/nrz_l.vds
-# Journal file       : C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.runs/synth_1\vivado.jou
-# Running On         : CE-LAB6728
+# Log file           : C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.runs/synth_1/nrz_l.vds
+# Journal file       : C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.runs/synth_1\vivado.jou
+# Running On         : CE-LAB6903
 # Platform           : Windows Server 2016 or Windows 10
 # Operating System   : 26200
 # Processor Detail   : 12th Gen Intel(R) Core(TM) i5-12500
 # CPU Frequency      : 2995 MHz
 # CPU Physical cores : 6
 # CPU Logical cores  : 12
-# Host memory        : 16881 MB
+# Host memory        : 16880 MB
 # Swap memory        : 1073 MB
-# Total Virtual      : 17955 MB
-# Available Virtual  : 2845 MB
+# Total Virtual      : 17954 MB
+# Available Virtual  : 3245 MB
 #-----------------------------------------------------------
 source nrz_l.tcl -notrace
-create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 529.000 ; gain = 218.977
-Command: read_checkpoint -auto_incremental -incremental {C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.srcs/utils_1/imports/synth_1/nrz_l.dcp}
-INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.srcs/utils_1/imports/synth_1/nrz_l.dcp for incremental synthesis
+create_project: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 530.199 ; gain = 220.484
+Command: read_checkpoint -auto_incremental -incremental {C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.srcs/utils_1/imports/synth_1/nrz_l.dcp}
+INFO: [Vivado 12-5825] Read reference checkpoint from C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.srcs/utils_1/imports/synth_1/nrz_l.dcp for incremental synthesis
 INFO: [Vivado 12-7989] Please ensure there are no constraint changes
 Command: synth_design -top nrz_l -part xc7a35tcpg236-1
 Starting synth_design
@@ -35,60 +35,60 @@ INFO: [Designutils 20-5440] No compile time benefit to using incremental synthes
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 19868
+INFO: [Synth 8-7075] Helper process launched with PID 12596
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1262.887 ; gain = 541.992
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1262.109 ; gain = 539.496
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'nrz_l' [C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.srcs/sources_1/new/nrz_l.vhd:27]
-INFO: [Synth 8-256] done synthesizing module 'nrz_l' (0#1) [C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.srcs/sources_1/new/nrz_l.vhd:27]
+INFO: [Synth 8-638] synthesizing module 'nrz_l' [C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.srcs/sources_1/new/nrz_l.vhd:27]
+INFO: [Synth 8-256] done synthesizing module 'nrz_l' (0#1) [C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.srcs/sources_1/new/nrz_l.vhd:27]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1379.625 ; gain = 658.730
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1380.871 ; gain = 658.258
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1379.625 ; gain = 658.730
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1380.871 ; gain = 658.258
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1379.625 ; gain = 658.730
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 1380.871 ; gain = 658.258
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1379.625 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1380.871 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.srcs/constrs_1/new/basys3_nrz_l.xdc]
-Finished Parsing XDC File [C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.srcs/constrs_1/new/basys3_nrz_l.xdc]
-INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.srcs/constrs_1/new/basys3_nrz_l.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/nrz_l_propImpl.xdc].
+Parsing XDC File [C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.srcs/constrs_1/new/basys3_nrz_l.xdc]
+Finished Parsing XDC File [C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.srcs/constrs_1/new/basys3_nrz_l.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.srcs/constrs_1/new/basys3_nrz_l.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/nrz_l_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/nrz_l_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1449.254 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1430.012 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1449.254 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.004 . Memory (MB): peak = 1430.012 ; gain = 0.000
 INFO: [Designutils 20-5440] No compile time benefit to using incremental synthesis; A full resynthesis will be run
 INFO: [Designutils 20-4379] Flow is switching to default flow due to incremental criteria not met. If you would like to alter this behaviour and have the flow terminate instead, please set the following parameter config_implementation {autoIncr.Synth.RejectBehavior Terminate}
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1449.254 ; gain = 728.359
+Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1430.012 ; gain = 707.398
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a35tcpg236-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1449.254 ; gain = 728.359
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1430.012 ; gain = 707.398
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1449.254 ; gain = 728.359
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1430.012 ; gain = 707.398
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1449.254 ; gain = 728.359
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 1430.012 ; gain = 707.398
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -122,25 +122,25 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1449.254 ; gain = 728.359
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 1435.137 ; gain = 712.523
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1576.887 ; gain = 855.992
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1571.711 ; gain = 849.098
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1599.375 ; gain = 878.480
+Finished Timing Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 1594.195 ; gain = 871.582
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 1599.375 ; gain = 878.480
+Finished Technology Mapping : Time (s): cpu = 00:00:17 ; elapsed = 00:00:19 . Memory (MB): peak = 1594.195 ; gain = 871.582
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -158,37 +158,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1837.051 ; gain = 1116.156
+Finished IO Insertion : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1831.449 ; gain = 1108.836
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1837.051 ; gain = 1116.156
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1831.449 ; gain = 1108.836
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1837.051 ; gain = 1116.156
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1831.449 ; gain = 1108.836
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1837.051 ; gain = 1116.156
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1831.449 ; gain = 1108.836
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1837.051 ; gain = 1116.156
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1831.449 ; gain = 1108.836
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1837.051 ; gain = 1116.156
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1831.449 ; gain = 1108.836
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -219,18 +219,18 @@ Report Cell Usage:
 |13    |OBUF   |    20|
 +------+-------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1837.051 ; gain = 1116.156
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1831.449 ; gain = 1108.836
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:13 ; elapsed = 00:00:20 . Memory (MB): peak = 1837.051 ; gain = 1046.527
-Synthesis Optimization Complete : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 1837.051 ; gain = 1116.156
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:13 ; elapsed = 00:00:20 . Memory (MB): peak = 1831.449 ; gain = 1059.695
+Synthesis Optimization Complete : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 1831.449 ; gain = 1108.836
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1846.203 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1840.664 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 7 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1849.918 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1844.359 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
@@ -238,8 +238,8 @@ Synth Design complete | Checksum: 85a319a4
 INFO: [Common 17-83] Releasing license: Synthesis
 23 Infos, 0 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:22 ; elapsed = 00:00:26 . Memory (MB): peak = 1849.918 ; gain = 1314.820
-Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1849.918 ; gain = 0.000
-INFO: [Common 17-1381] The checkpoint 'C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.runs/synth_1/nrz_l.dcp' has been generated.
+synth_design: Time (s): cpu = 00:00:23 ; elapsed = 00:00:26 . Memory (MB): peak = 1844.359 ; gain = 1307.652
+Write ShapeDB Complete: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.002 . Memory (MB): peak = 1844.359 ; gain = 0.000
+INFO: [Common 17-1381] The checkpoint 'C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.runs/synth_1/nrz_l.dcp' has been generated.
 INFO: [Vivado 12-24828] Executing command : report_utilization -file nrz_l_utilization_synth.rpt -pb nrz_l_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Fri May 22 20:47:35 2026...
+INFO: [Common 17-206] Exiting Vivado at Mon May 25 21:31:36 2026...

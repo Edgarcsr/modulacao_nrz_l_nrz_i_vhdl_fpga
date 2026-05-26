@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/081230039/Desktop/nrz-project-2026/NRZ-I Project/Projeto NRZ-I.runs/impl_1'
+HD_PWD='C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-I/vivado-project/Projeto NRZ-I.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -43,6 +43,6 @@ EAStep()
 
 # pre-commands:
 /bin/touch .write_bitstream.begin.rst
-EAStep vivado -log nrz_vga_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source nrz_vga_top.tcl -notrace
+EAStep vivado -log nrz_i_top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source nrz_i_top.tcl -notrace
 
 

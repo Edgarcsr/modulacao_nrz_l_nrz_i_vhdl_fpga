@@ -25,7 +25,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/081230039/Desktop/nrz-project-2026/NRZ-L Project/Projeto NRZ-L.runs/synth_1'
+HD_PWD='C:/Users/081230039/Desktop/modulacao_nrz_l_nrz_i_vhdl_fpga/NRZ-L/vivado-project/Projeto NRZ-L.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log

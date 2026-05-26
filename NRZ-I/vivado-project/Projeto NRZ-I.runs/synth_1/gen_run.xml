@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1779490991" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/nrz_i.dcp">
-  <File Type="PA-TCL" Name="nrz_vga_top.tcl"/>
-  <File Type="REPORTS-TCL" Name="nrz_vga_top_reports.tcl"/>
-  <File Type="RDS-RDS" Name="nrz_vga_top.vds"/>
-  <File Type="RDS-PROPCONSTRS" Name="nrz_vga_top_drc_synth.rpt"/>
-  <File Type="RDS-UTIL" Name="nrz_vga_top_utilization_synth.rpt"/>
-  <File Type="RDS-UTIL-PB" Name="nrz_vga_top_utilization_synth.pb"/>
-  <File Type="RDS-DCP" Name="nrz_vga_top.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="nrz_vga_top_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="nrz_vga_top_timing_summary_synth.pb"/>
+<GenRun Id="synth_1" LaunchPart="xc7a35tcpg236-1" LaunchTime="1779756606" LaunchIncrCheckpoint="$PSRCDIR/utils_1/imports/synth_1/nrz_i.dcp">
+  <File Type="PA-TCL" Name="nrz_i_top.tcl"/>
+  <File Type="REPORTS-TCL" Name="nrz_i_top_reports.tcl"/>
+  <File Type="RDS-RDS" Name="nrz_i_top.vds"/>
+  <File Type="RDS-PROPCONSTRS" Name="nrz_i_top_drc_synth.rpt"/>
+  <File Type="RDS-UTIL" Name="nrz_i_top_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="nrz_i_top_utilization_synth.pb"/>
+  <File Type="RDS-DCP" Name="nrz_i_top.dcp"/>
+  <File Type="VDS-TIMINGSUMMARY" Name="nrz_i_top_timing_summary_synth.rpt"/>
+  <File Type="VDS-TIMING-PB" Name="nrz_i_top_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/nrz_i.vhd">
@@ -19,7 +19,7 @@
     </File>
     <Config>
       <Option Name="DesignMode" Val="RTL"/>
-      <Option Name="TopModule" Val="nrz_vga_top"/>
+      <Option Name="TopModule" Val="nrz_i_top"/>
       <Option Name="TopAutoSet" Val="TRUE"/>
     </Config>
   </FileSet>
