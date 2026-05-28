@@ -14,7 +14,7 @@ Veja o NRZ-I funcionando com saída VGA:
 VGA/
 ├── src/          Código VHDL do circuito com gerador VGA
 ├── constraints/  Constraint com mapeamento dos pinos VGA
-└── docs/         (Tutoriais e fotos — quando disponível)
+└── docs/         (Tutoriais e vídeos — quando disponível)
 ```
 
 ## Arquivos

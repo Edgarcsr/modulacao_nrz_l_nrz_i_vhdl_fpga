@@ -14,7 +14,7 @@ Veja o NRZ-L funcionando com saída PMOD:
 PMOD/
 ├── src/          Código VHDL adaptado com saída no PMOD
 ├── constraints/  Constraint com mapeamento do pino PMOD (J2)
-└── docs/         (Tutoriais e fotos das conexões — quando disponível)
+└── docs/         (Tutoriais e vídeos das conexões — quando disponível)
 ```
 
 ## Arquivos
