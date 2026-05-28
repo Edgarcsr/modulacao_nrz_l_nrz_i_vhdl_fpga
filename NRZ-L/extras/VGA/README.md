@@ -1,6 +1,12 @@
 # Extra - Saída VGA (Visualização)
 
-Implementa uma saída de vídeo VGA que exibe a forma de onda do sinal modulado **NRZ-L** na tela com cores pulsantes, permitindo visualizar a modulação em tempo real sem necessidade de osciloscópio.
+Implementa uma saída de vídeo VGA que exibe a forma de onda do sinal modulado **NRZ-L** na tela com **cores em tempo real**: **vermelho** representa nível baixo (bit 0) e **verde** representa nível alto (bit 1).
+
+## Vídeo de demonstração
+
+Veja o projeto NRZ-L funcionando completamente (simulação, programação e saída VGA):
+
+- [nrz-l-all-3-working.mov](../../../Assets/nrz-l-all-3-working.mov)
 
 ## Estrutura desta pasta
 
@@ -23,18 +29,12 @@ VGA/
 - **Cabo VGA** (DB-15 macho-macho)
 - **Cabo USB** para programar a placa
 
-## Mapeamento de pinos VGA
+## Mapa de cores
 
-Os pinos VGA da Basys3 são:
-
-- **R** (Vermelho) — Pino JB1
-- **G** (Verde) — Pino JB2
-- **B** (Azul) — Pino JB3
-- **HSYNC** (Sincronismo Horizontal) — Pino JB4
-- **VSYNC** (Sincronismo Vertical) — Pino JB5
-- **GND** — Pinos JB6 e JB7
-
-Consulte a constraint `basys3_nrz_i.xdc` para confirmação exata.
+| Nível     | Cor         | Significado          |
+| --------- | ----------- | -------------------- |
+| **Baixa** | 🔴 Vermelho | Bit 0 (lógico baixo) |
+| **Alta**  | 🟢 Verde    | Bit 1 (lógico alto)  |
 
 ## Como reproduzir
 
@@ -55,20 +55,18 @@ Consulte a constraint `basys3_nrz_i.xdc` para confirmação exata.
 
 1. Conecte o cabo VGA do monitor ao conector PMOD VGA da Basys3
 2. Ligue o monitor
-3. Dentro de alguns segundos, a forma de onda deve aparecer na tela
+3. Dentro de alguns segundos, a forma de onda deve aparecer com **vermelho** (bit 0) e **verde** (bit 1)
 
-### 4. Visualizar e interagir
+### 4. Visualizar
 
-- **Forma de onda**: Deve aparecer em cores pulsantes, mostrando graficamente o sinal modulado NRZ-L
-- **Cores**: Mudam constantemente para criar efeito visual da modulação
+- **Forma de onda em tempo real**: As cores mudando entre vermelho e verde representam os bits sendo transmitidos
 - **Sincronismo**: Se a imagem estiver distorcida ou piscando, ajuste a resolução ou sincronismo no monitor
 
 ## Características da visualização
 
 - **Resolução**: 640×480 pixels (VGA padrão)
-- **Cores**: RGB com pulsação dinâmica conforme o estado do sinal
-- **Taxa de atualização**: Sincronizada com o sinal de modulação
-- **Representação**: A forma de onda é desenhada na tela em tempo real
+- **Mapa de cores**: Vermelho (bit 0) e Verde (bit 1)
+- **Taxa de atualização**: Sincronizada com o sinal de modulação em tempo real
 
 ## Dicas de troubleshooting
 
@@ -78,14 +76,6 @@ Consulte a constraint `basys3_nrz_i.xdc` para confirmação exata.
 | Imagem distorcida ou piscando | Ajuste os controles de sincronismo (H-Sync, V-Sync) no menu do monitor       |
 | Apenas uma cor visível        | Verifique o mapeamento dos pinos R, G, B no constraint                       |
 | Sem sinal no monitor          | Confirme que o bitstream foi programado na placa e que o USB está conectado  |
-
-## Próxima atividade
-
-Após visualizar a forma de onda NRZ-L na tela VGA, você pode:
-
-1. Explorar o [PMOD - Osciloscópio](../PMOD/) para validar o sinal com um equipamento profissional
-2. Retornar ao [README principal](../../README.md) do projeto NRZ-L
-3. Passar para o projeto [NRZ-I](../../../NRZ-I/) para aprender a segunda modulação
 
 ---
 

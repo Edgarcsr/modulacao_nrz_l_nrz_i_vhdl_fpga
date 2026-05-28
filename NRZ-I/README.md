@@ -23,6 +23,12 @@ NRZ-I/
 
 ## Por onde começar
 
+### Tutoriais em vídeo
+
+- [Explicação teorética do NRZ-I](../Assets/nrz-i-explained.mov)
+- [NRZ-I com saída PMOD](../Assets/nrz-i-pmod.mov)
+- [NRZ-I com saída VGA](../Assets/nrz-i-vga.mov)
+
 ### Para uma simulação rápida (5 minutos)
 
 1. Abra o Vivado

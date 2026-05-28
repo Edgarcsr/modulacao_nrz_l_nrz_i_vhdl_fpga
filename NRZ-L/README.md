@@ -23,6 +23,12 @@ NRZ-L/
 
 ## Por onde começar
 
+### Tutoriais em vídeo
+
+- [Abrir projeto no Vivado](../Assets/tutorial-open-project.mp4)
+- [Programar a placa FPGA](../Assets/tutorial-program-device.mp4)
+- [NRZ-L funcionando completo](../Assets/nrz-l-all-3-working.mov) (simulação + programação + saída VGA)
+
 ### Para uma simulação rápida (5 minutos)
 
 1. Abra o Vivado

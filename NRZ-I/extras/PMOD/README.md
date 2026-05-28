@@ -2,6 +2,13 @@
 
 Disponibiliza o sinal modulado **NRZ-I** em um pino do conector PMOD da placa, permitindo visualizar a forma de onda em tempo real usando o **Analog Discovery 3 Pro Bundle** com o aplicativo **Waveform**.
 
+## Vídeos de demonstração
+
+Veja o NRZ-I funcionando com saída PMOD:
+
+- [nrz-i-explained.mov](../../../Assets/nrz-i-explained.mov) (explicação teórica)
+- [nrz-i-pmod.mov](../../../Assets/nrz-i-pmod.mov) (visualização no Waveform)
+
 ## Estrutura desta pasta
 
 ```
